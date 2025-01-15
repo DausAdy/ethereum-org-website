@@ -1,5 +1,5 @@
-import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
+import { useTheme } from "next-themes"
 import {
   BsBook,
   BsBuildings,
@@ -18,27 +18,18 @@ import {
   BsUiChecksGrid,
 } from "react-icons/bs"
 import { PiFlask, PiUsersFourLight } from "react-icons/pi"
-import {
-  useColorMode,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react"
+import { useColorMode } from "@chakra-ui/react"
 
-import { EthereumIcon } from "@/components/icons/EthereumIcon"
+import EthereumIcon from "@/components/icons/ethereum-icon.svg"
 
 import { trackCustomEvent } from "@/lib/utils/matomo"
-
-import { FROM_QUERY } from "@/lib/constants"
 
 import type { NavSections } from "./types"
 
 export const useNav = () => {
-  const { asPath } = useRouter()
-  const { isOpen, onToggle } = useDisclosure()
   const { t } = useTranslation("common")
-
-  const colorToggleEvent = useColorModeValue("dark mode", "light mode") // This will be inverted as the state is changing
-  const { toggleColorMode: chakraToggleColorMode } = useColorMode()
+  const { setTheme, resolvedTheme } = useTheme()
+  const { setColorMode } = useColorMode()
 
   const linkSections: NavSections = {
     learn: {
@@ -196,6 +187,11 @@ export const useNav = () => {
               href: "/defi/",
             },
             {
+              label: t("payments-page"),
+              description: t("nav-payments-description"),
+              href: "/payments/",
+            },
+            {
               label: t("dao-page"),
               description: t("nav-dao-description"),
               href: "/dao/",
@@ -256,10 +252,26 @@ export const useNav = () => {
           ],
         },
         {
-          label: t("layer-2"),
-          description: t("nav-layer-2-description"),
+          label: t("nav-ethereum-networks"),
+          description: t("nav-ethereum-networks-description"),
           icon: BsLayers,
-          href: "/layer-2/",
+          items: [
+            {
+              label: t("nav-networks-introduction-label"),
+              description: t("nav-networks-introduction-description"),
+              href: "/layer-2/",
+            },
+            {
+              label: t("nav-networks-explore-networks-label"),
+              description: t("nav-networks-explore-networks-description"),
+              href: "/layer-2/networks/",
+            },
+            {
+              label: t("nav-networks-learn-label"),
+              description: t("nav-networks-learn-description"),
+              href: "/layer-2/learn/",
+            },
+          ],
         },
       ],
     },
@@ -329,20 +341,9 @@ export const useNav = () => {
         },
         {
           label: t("enterprise"),
-          description: t("nav-enterprise-description"),
+          description: t("nav-mainnet-description"),
           icon: BsBuildings,
-          items: [
-            {
-              label: t("mainnet-ethereum"),
-              description: t("nav-mainnet-description"),
-              href: "/enterprise/",
-            },
-            {
-              label: t("private-ethereum"),
-              description: t("nav-private-description"),
-              href: "/enterprise/private-ethereum/",
-            },
-          ],
+          href: "/enterprise/",
         },
       ],
     },
@@ -470,32 +471,21 @@ export const useNav = () => {
     },
   }
 
-  const splitPath = asPath.split("/")
-  const fromPageParameter =
-    splitPath.length > 1 && splitPath[1] !== "languages"
-      ? `?${FROM_QUERY}=/${splitPath.slice(1).join("/")}`
-      : ""
-
   const toggleColorMode = () => {
-    chakraToggleColorMode()
+    const targetTheme = resolvedTheme === "dark" ? "light" : "dark"
+
+    setTheme(targetTheme)
+    setColorMode(targetTheme)
+
     trackCustomEvent({
       eventCategory: "nav bar",
       eventAction: "click",
-      eventName: colorToggleEvent,
+      eventName: `${targetTheme} mode`,
     })
   }
 
-  const mobileNavProps = {
-    fromPageParameter,
-    isOpen,
-    toggleColorMode,
-    onToggle,
-  }
-
   return {
-    fromPageParameter,
     linkSections,
-    mobileNavProps,
     toggleColorMode,
   }
 }

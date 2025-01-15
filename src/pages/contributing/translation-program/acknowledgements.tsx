@@ -92,7 +92,7 @@ const TranslatorAcknowledgements = () => {
       />
 
       <Content>
-        <Breadcrumbs slug={router.asPath} mt={12} />
+        <Breadcrumbs slug={router.asPath} className="mt-12" />
         <ContentHeading
           as="h1"
           fontSize={{ base: "2rem", sm: "2.5rem", md: "5xl" }}
@@ -198,9 +198,10 @@ const TranslatorAcknowledgements = () => {
             "page-contributing-translation-program-acknowledgements-our-translators-1"
           )}
         </Text>
-        <Box
-          as={ActionCard}
-          to="/contributing/translation-program/contributors/"
+        <ActionCard
+          className="my-8"
+          imageWidth={260}
+          href="/contributing/translation-program/contributors/"
           title={t(
             "page-contributing-translation-program-acknowledgements-our-translators-view-all"
           )}
@@ -208,25 +209,6 @@ const TranslatorAcknowledgements = () => {
             "page-contributing-translation-program-acknowledgements-our-translators-cta"
           )}
           image={whatIsEthereumImg}
-          display={{ base: "block", sm: "flex" }}
-          flex="none"
-          my={8}
-          mx={0}
-          sx={{
-            ".action-card-image-wrapper": {
-              p: 4,
-              minW: { sm: "260px" },
-            },
-            ".action-card-content": {
-              display: { sm: "flex" },
-              justifyContent: { sm: "center" },
-              flexDirection: { sm: "column" },
-              ms: { sm: 4 },
-            },
-            p: {
-              mb: 0,
-            },
-          }}
         />
       </Content>
 
