@@ -32,7 +32,9 @@ import Text from "@/components/OldText"
 import PageMetadata from "@/components/PageMetadata"
 import { StandaloneQuizWidget } from "@/components/Quiz/QuizWidget"
 import Translation from "@/components/Translation"
+import { Divider } from "@/components/ui/divider"
 
+import { cn } from "@/lib/utils/cn"
 import { existsNamespace } from "@/lib/utils/existsNamespace"
 import { getLastDeployDate } from "@/lib/utils/getLastDeployDate"
 import { getLocaleTimestamp } from "@/lib/utils/time"
@@ -57,10 +59,6 @@ const Page = (props: ChildOnlyProp) => (
 
 const Content = (props: ChildOnlyProp) => (
   <Box w="full" px={8} py={4} {...props} />
-)
-
-const Divider = () => (
-  <Box my={16} mx={0} w="10%" h={1} backgroundColor="homeDivider" />
 )
 
 const GrayContainer = (props: ChildOnlyProp) => (
@@ -215,9 +213,12 @@ const CardContainer = (props: FlexProps) => (
 )
 
 const TokenCard = (props: ComponentProps<typeof HorizontalCard>) => (
-  <HorizontalCard minW="full" my={2} mx={0} borderRadius={0} {...props} />
+  <HorizontalCard
+    className={cn("mx-0 my-2 min-w-full rounded-none", props.className)}
+    emojiClassName="text-[5rem]"
+    {...props}
+  />
 )
-
 const TextDivider = () => (
   <Box
     w="10%"
@@ -240,28 +241,7 @@ const CentralColumn = (props: ChildOnlyProp) => (
 )
 
 const CentralActionCard = (props: ComponentProps<typeof ActionCard>) => (
-  <ActionCard
-    display={{ base: "block", sm: "flex" }}
-    flex="none"
-    my={8}
-    mx={0}
-    sx={{
-      ".action-card-image-wrapper": {
-        p: 4,
-        minW: { sm: "260px" },
-      },
-      ".action-card-content": {
-        display: { sm: "flex" },
-        justifyContent: { sm: "center" },
-        flexDirection: { sm: "column" },
-        ms: { sm: 4 },
-      },
-      p: {
-        mb: { sm: 0 },
-      },
-    }}
-    {...props}
-  />
+  <ActionCard className="my-8" imageWidth={260} {...props} />
 )
 
 export const getStaticProps = (async ({ locale }) => {
@@ -393,8 +373,8 @@ const EthPage = () => {
             <Slogan>{t("page-eth-currency-for-future")}</Slogan>
             <Subtitle>{t("page-eth-is-money")}</Subtitle>
             <SubtitleTwo>{t("page-eth-currency-for-apps")}</SubtitleTwo>
-            <EthPriceCard isLeftAlign={false} mb={8} />
-            <ButtonLink to="/get-eth/">
+            <EthPriceCard className="mb-8" />
+            <ButtonLink href="/get-eth/">
               {t("page-eth-button-buy-eth")}
             </ButtonLink>
           </Header>
@@ -456,7 +436,7 @@ const EthPage = () => {
             </Text>
           </Box>
           <CentralActionCard
-            to="/what-is-ethereum/"
+            href="/what-is-ethereum/"
             title={t("page-eth-whats-ethereum")}
             description={t("page-eth-whats-ethereum-desc")}
             image={ethereum}
@@ -469,7 +449,7 @@ const EthPage = () => {
             </Text>
             <Text>{t("page-eth-underpins-desc-2")}</Text>
             <CentralActionCard
-              to="/defi/"
+              href="/defi/"
               title={t("page-eth-whats-defi")}
               description={t("page-eth-whats-defi-description")}
               image={defi}
@@ -513,8 +493,7 @@ const EthPage = () => {
           <Divider />
         </CentralColumn>
         <CalloutBanner
-          my={20}
-          mx={0}
+          className="mx-0 my-20"
           titleKey={"page-eth:page-eth-where-to-buy"}
           descriptionKey={"page-eth:page-eth-where-to-buy-desc"}
           image={ethCat}
@@ -522,7 +501,9 @@ const EthPage = () => {
           imageWidth={300}
         >
           <Box>
-            <ButtonLink to="/get-eth/">{t("page-eth-get-eth-btn")}</ButtonLink>
+            <ButtonLink href="/get-eth/">
+              {t("page-eth-get-eth-btn")}
+            </ButtonLink>
           </Box>
         </CalloutBanner>
       </Content>
@@ -556,7 +537,6 @@ const EthPage = () => {
               emoji={token.emoji}
               title={token.title}
               description={token.description}
-              emojiSize={5}
             />
           ))}
         </RightColumn>

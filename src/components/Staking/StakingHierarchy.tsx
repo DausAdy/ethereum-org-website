@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "next-i18next"
+import { IconBase } from "react-icons"
 import {
   Box,
   calc,
@@ -117,19 +118,13 @@ const SectionGrid = ({ number, children }: SectionGridProps) => {
   )
 }
 
-const StyledEtherSvg = ({ size }: { size: string }) => (
-  <Center gridArea="ether" zIndex={2} maxW={20} width="full" mx="auto">
-    <StakingGlyphEtherCircleIcon
-      boxSize={size}
-      color={$colorVar.reference}
-      sx={{
-        "#transparentBackground": {
-          fill: $fillColorVar.reference,
-        },
-      }}
-    />
-  </Center>
-)
+const StyledEtherSvg = ({ className = "size-full" }: { className: string }) => {
+  return (
+    <Center gridArea="ether" zIndex={2} maxW={20} width="full" mx="auto">
+      <StakingGlyphEtherCircleIcon className={className} />
+    </Center>
+  )
+}
 
 const Line = () => {
   // TODO: Remove after completion of the Chakra migration
@@ -211,7 +206,7 @@ const Pills = ({ children }: ChildOnlyProp) => (
   </Flex>
 )
 
-type GlyphProps = { glyphIcon: typeof Icon }
+type GlyphProps = { glyphIcon: typeof IconBase }
 const Glyph = ({ glyphIcon }: GlyphProps) => (
   <Center gridArea={{ base: "content", md: "glyph" }}>
     <Icon
@@ -262,7 +257,7 @@ const StakingHierarchy = () => {
       }}
     >
       <SectionGrid number={1}>
-        <StyledEtherSvg size="100%" />
+        <StyledEtherSvg className="size-[100%] text-staking-gold" />
         <Line />
         <Header>
           <HeadingEl>{t("page-staking-hierarchy-solo-h2")}</HeadingEl>
@@ -281,9 +276,10 @@ const StakingHierarchy = () => {
             <Translation id="page-staking:page-staking-hierarchy-solo-p1" />
           </Text>
           <Text>{t("page-staking-hierarchy-solo-p2")}</Text>
+          <Text>{t("page-staking-hierarchy-solo-p3")}</Text>
           <Box>
             <ButtonLink
-              to="/staking/solo/"
+              href="/staking/solo/"
               onClick={() => {
                 trackCustomEvent({
                   eventCategory: `StakingHierarchy`,
@@ -299,7 +295,7 @@ const StakingHierarchy = () => {
         </Content>
       </SectionGrid>
       <SectionGrid number={2}>
-        <StyledEtherSvg size="90%" />
+        <StyledEtherSvg className="size-[90%] text-staking-green" />
         <Line />
         <Header>
           <HeadingEl>{t("page-staking-dropdown-saas")}</HeadingEl>
@@ -316,7 +312,7 @@ const StakingHierarchy = () => {
           <Text>{t("page-staking-hierarchy-saas-p3")}</Text>
           <Box>
             <ButtonLink
-              to="/staking/saas/"
+              href="/staking/saas/"
               onClick={() => {
                 trackCustomEvent({
                   eventCategory: `StakingHierarchy`,
@@ -332,7 +328,7 @@ const StakingHierarchy = () => {
         </Content>
       </SectionGrid>
       <SectionGrid number={3}>
-        <StyledEtherSvg size="80%" />
+        <StyledEtherSvg className="size-[80%] text-staking-blue" />
         <Line />
         <Header>
           <HeadingEl>{t("page-staking-dropdown-pools")}</HeadingEl>
@@ -361,7 +357,7 @@ const StakingHierarchy = () => {
           </Text>
           <Box>
             <ButtonLink
-              to="/staking/pools/"
+              href="/staking/pools/"
               onClick={() => {
                 trackCustomEvent({
                   eventCategory: `StakingHierarchy`,
@@ -377,7 +373,7 @@ const StakingHierarchy = () => {
         </Content>
       </SectionGrid>
       <SectionGrid number={4}>
-        <StyledEtherSvg size="70%" />
+        <StyledEtherSvg className="size-[70%] text-staking-red" />
         <Line />
         <Header>
           <HeadingEl>{t("page-staking-hierarchy-cex-h2")}</HeadingEl>

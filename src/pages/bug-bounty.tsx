@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import {
   Box,
   Center,
-  Heading,
   ListItem,
   UnorderedList,
   useColorModeValue,
@@ -13,6 +12,7 @@ import {
 
 import type { BasePageProps, ChildOnlyProp, Lang } from "@/lib/types"
 
+import BugBountyBanner from "@/components/Banners/BugBountyBanner"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import BugBountyCards from "@/components/BugBountyCards"
 import ButtonLink from "@/components/Buttons/ButtonLink"
@@ -29,6 +29,7 @@ import OldHeading from "@/components/OldHeading"
 import Text from "@/components/OldText"
 import PageMetadata from "@/components/PageMetadata"
 import Translation from "@/components/Translation"
+import { Divider } from "@/components/ui/divider"
 
 import { existsNamespace } from "@/lib/utils/existsNamespace"
 import { getLastDeployDate } from "@/lib/utils/getLastDeployDate"
@@ -48,8 +49,10 @@ import nethermind from "@/public/images/upgrades/nethermind.png"
 import nimbus from "@/public/images/upgrades/nimbus-cloud.png"
 import prysm from "@/public/images/upgrades/prysm.png"
 import reth from "@/public/images/upgrades/reth.png"
+import solidity from "@/public/images/upgrades/solidity.png"
 import tekuDark from "@/public/images/upgrades/teku-dark.png"
 import tekuLight from "@/public/images/upgrades/teku-light.png"
+import vyper from "@/public/images/upgrades/vyper.png"
 
 const Page = (props: ChildOnlyProp) => (
   <Box
@@ -103,24 +106,13 @@ const Subtitle = (props: ChildOnlyProp) => (
   />
 )
 
-const SloganGradient = (props: ChildOnlyProp) => (
-  <Box
-    maxW="720px"
-    mt="4"
-    bgClip="text"
-    overflow="auto"
-    sx={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-    bg="upgradesGradient"
+const SloganGradient = ({ children }: ChildOnlyProp) => (
+  <div
+    className="mt-4 max-w-[720px] overflow-auto bg-linear-bug-bounty-title bg-clip-text"
+    style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
   >
-    <Heading
-      as="h1"
-      fontSize={{ base: "2.5rem", lg: "5xl" }}
-      fontWeight="800"
-      mb="1.45rem"
-    >
-      {props.children}
-    </Heading>
-  </Box>
+    <h1 className="mb-6 text-4xl font-bold lg:text-5xl">{children}</h1>
+  </div>
 )
 
 const Rules = (props: ChildOnlyProp) => (
@@ -177,10 +169,6 @@ const FullLeaderboardContainer = (props: ChildOnlyProp) => (
 )
 
 const On = () => <Box w="8px" h="8px" bg="success400" borderRadius="64px" />
-
-const Divider = () => (
-  <Box my="16" mx="0" w="10%" h="1" backgroundColor="homeDivider" />
-)
 
 const Contact = (props: ChildOnlyProp) => (
   <Box
@@ -325,6 +313,12 @@ type Spec = {
   link: string
 }
 
+type Language = {
+  title: string
+  link: string
+  image: ImageProps["src"]
+}
+
 const sortBountyHuntersFn = (a: BountyHuntersArg, b: BountyHuntersArg) => {
   if (!a.score || !b.score) return 0
   return b.score - a.score
@@ -457,6 +451,19 @@ const BugBountiesPage = () => {
     },
   ]
 
+  const languages: Language[] = [
+    {
+      title: "Solidity",
+      link: "https://soliditylang.org/",
+      image: solidity,
+    },
+    {
+      title: "Vyper",
+      link: "https://vyperlang.org/",
+      image: vyper,
+    },
+  ]
+
   const iconImageProps = {
     width: 60,
   }
@@ -466,11 +473,12 @@ const BugBountiesPage = () => {
         title={t("page-upgrades-bug-bounty-meta-title")}
         description={t("page-upgrades-bug-bounty-meta-description")}
       />
-      {/* INFO: Uncomment this to enable Bug Bounty Banner: <BugBountyBanner /> */}
+      { /* TODO: Remove on the 25th of January */ }
+      <BugBountyBanner />
       <Content>
         <HeroCard>
           <HeroContainer>
-            <Breadcrumbs slug={pathname} mb="8" />
+            <Breadcrumbs slug={pathname} className="mb-8" />
             <Row>
               <On />
               <Title>{t("page-upgrades-bug-bounty-title")}</Title>
@@ -480,10 +488,10 @@ const BugBountiesPage = () => {
             </SloganGradient>
             <Subtitle>{t("page-upgrades-bug-bounty-subtitle")}</Subtitle>
             <ButtonRow>
-              <StyledButton to="https://forms.gle/Gnh4gzGh66Yc3V7G8">
+              <StyledButton href="https://forms.gle/Gnh4gzGh66Yc3V7G8">
                 {t("page-upgrades-bug-bounty-submit")}
               </StyledButton>
-              <StyledButton variant="outline" to="#rules" isSecondary>
+              <StyledButton variant="outline" href="#rules" isSecondary>
                 {t("page-upgrades-bug-bounty-rules")}
               </StyledButton>
             </ButtonRow>
@@ -662,9 +670,7 @@ const BugBountiesPage = () => {
                 >
                   {t("page-upgrades-bug-bounty-help-links")}
                 </OldHeading>
-                <InlineLink href="https://github.com/ethereum/solidity/blob/develop/SECURITY.md">
-                  SECURITY.md
-                </InlineLink>
+                <CardList items={languages} />
               </Box>
             </StyledCard>
             <StyledCard
@@ -937,7 +943,7 @@ const BugBountiesPage = () => {
             </InlineLink>
           </Text>
         </Box>
-        <Emoji fontSize="5xl" text=":email:" />
+        <Emoji className="text-5xl" text=":email:" />
       </Contact>
       <FeedbackCard />
     </Page>

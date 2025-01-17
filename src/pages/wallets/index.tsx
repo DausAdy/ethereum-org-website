@@ -31,6 +31,7 @@ import { StandaloneQuizWidget } from "@/components/Quiz/QuizWidget"
 import { Simulator } from "@/components/Simulator"
 import { SIMULATOR_ID } from "@/components/Simulator/constants"
 import Translation from "@/components/Translation"
+import { Divider } from "@/components/ui/divider"
 
 import { existsNamespace } from "@/lib/utils/existsNamespace"
 import { getLastDeployDate } from "@/lib/utils/getLastDeployDate"
@@ -116,16 +117,10 @@ export const StyledCard = (props: ComponentPropsWithRef<typeof Card>) => (
 )
 const ChecklistItem = (props: HorizontalCardProps) => (
   <HorizontalCard
-    border={0}
-    display="flex"
-    emojiSize={1.5}
-    alignItems="flex-start"
-    mb={4}
+    emojiClassName="text-2xl"
+    className="items-start"
     {...props}
   />
-)
-const Divider = (props: BoxProps) => (
-  <Box my={16} w="10%" h="0.25rem" bgColor="homeDivider" {...props} />
 )
 
 const CalloutCardContainer = (props: ChildOnlyProp) => (
@@ -167,33 +162,33 @@ const WalletsPage = () => {
       locale === "en"
         ? [
             {
-              to: "/wallets/find-wallet/",
+              href: "/wallets/find-wallet/",
               content: t("page-wallets-find-wallet-link"),
               matomo: {
-                eventCategory: "wallet hero buttons",
+                eventCategory: "Header buttons",
                 eventAction: "click",
-                eventName: "find wallet",
+                eventName: "Find_wallet",
               },
             },
             {
-              to: `#${SIMULATOR_ID}`,
+              href: `#${SIMULATOR_ID}`,
               content: "How to use a wallet",
               matomo: {
-                eventCategory: "wallet hero buttons",
+                eventCategory: "Header buttons",
                 eventAction: "click",
-                eventName: "interactive tutorial",
+                eventName: "How_to_use_wallet",
               },
-              variant: "outline",
+              variant: "outline" as const,
             },
           ]
         : [
             {
-              to: "/wallets/find-wallet/",
+              href: "/wallets/find-wallet/",
               content: t("page-wallets-find-wallet-link"),
               matomo: {
-                eventCategory: "wallet hero buttons",
+                eventCategory: "Header button",
                 eventAction: "click",
-                eventName: "find wallet",
+                eventName: "Find_wallet",
               },
             },
           ],
@@ -253,11 +248,21 @@ const WalletsPage = () => {
       title: t("page-wallets-protecting-yourself"),
       description: "MyCrypto",
       link: "https://support.mycrypto.com/staying-safe/protecting-yourself-and-your-funds",
+      customEventOptions: {
+        eventCategory: "Link",
+        eventAction: "Clicked_external",
+        eventName: "protecting_yourself",
+      },
     },
     {
       title: t("page-wallets-keys-to-safety"),
       description: t("page-wallets-blog"),
       link: "https://www.coinbase.com/learn/crypto-basics/how-to-secure-crypto",
+      customEventOptions: {
+        eventCategory: "Link",
+        eventAction: "Clicked_external",
+        eventName: "the_keys_to_keeping_crypto_safe",
+      },
     },
   ]
 
@@ -265,10 +270,20 @@ const WalletsPage = () => {
     {
       title: t("additional-reading-how-to-create-an-ethereum-account"),
       link: "/guides/how-to-create-an-ethereum-account/",
+      customEventOptions: {
+        eventCategory: "Link",
+        eventAction: "Clicked",
+        eventName: "Create_eth_acc",
+      },
     },
     {
       title: t("additional-reading-how-to-use-a-wallet"),
       link: "/guides/how-to-use-a-wallet/",
+      customEventOptions: {
+        eventCategory: "Link",
+        eventAction: "Clicked",
+        eventName: "How_to_use_wallet",
+      },
     },
   ]
 
@@ -341,19 +356,14 @@ const WalletsPage = () => {
         <RightColumn mt={{ base: 12, lg: 0 }}>
           <H2>{t("page-wallets-types")}</H2>
           <Text>{t("page-wallets-types-desc")}</Text>
-          <Box>
+          <Box className="flex flex-col gap-2">
             {types.map((type, idx) => (
               <HorizontalCard
-                minWidth="100%"
-                marginTop={2}
-                marginBottom={2}
-                ms={0}
-                me={0}
                 key={idx}
                 emoji={type.emoji}
                 description={type.description}
-                emojiSize={2.5}
-                alignItems="center"
+                className="my-0.5 w-[100%]"
+                emojiClassName="text-[2.5rem]"
               />
             ))}
           </Box>
@@ -400,7 +410,14 @@ const WalletsPage = () => {
               >
                 {t("page-wallets-features-desc")}
               </Box>
-              <ButtonLink to="/wallets/find-wallet/">
+              <ButtonLink
+                href="/wallets/find-wallet/"
+                customEventOptions={{
+                  eventCategory: "header buttons",
+                  eventAction: "click",
+                  eventName: "Find_wallet",
+                }}
+              >
                 {t("page-wallets-find-wallet-btn")}
               </ButtonLink>
               <Image
@@ -422,7 +439,7 @@ const WalletsPage = () => {
           <Box lineHeight={1.4} mb={6} color="text300">
             <Translation id="page-wallets:page-wallets-stay-safe-desc" />
           </Box>
-          <Box>
+          <Flex direction="column" gap={4}>
             <ChecklistItem
               key="0"
               emoji=":white_check_mark:"
@@ -455,7 +472,7 @@ const WalletsPage = () => {
               title={t("page-wallets-triple-check")}
               description={t("page-wallets-triple-check-desc")}
             />
-          </Box>
+          </Flex>
         </LeftColumn>
         <RightColumn mt={{ base: 12, lg: 0 }}>
           <H2>{t("page-wallets-tips")}</H2>
@@ -467,32 +484,31 @@ const WalletsPage = () => {
       </TwoColumnContent>
       <Content>
         <Divider />
+
         <H2>{t("page-wallets-explore")}</H2>
         <CalloutCardContainer>
           <Callout
-            flex="1 1 424px"
-            minH="full"
             image={ETHImage}
             titleKey="page-wallets:page-wallets-get-some"
             alt={t("page-wallets-get-some-alt")}
             descriptionKey="page-wallets:page-wallets-get-some-desc"
+            className="min-h-full flex-1 basis-[424px]"
           >
             <Box>
-              <ButtonLink to="/get-eth/">
+              <ButtonLink href="/get-eth/">
                 {t("page-wallets-get-some-btn")}
               </ButtonLink>
             </Box>
           </Callout>
           <Callout
-            flex="1 1 424px"
-            minH="full"
             image={DappsImage}
             titleKey="page-wallets:page-wallets-try-dapps"
             alt={t("page-wallets-try-dapps-alt")}
             descriptionKey="page-wallets:page-wallets-try-dapps-desc"
+            className="min-h-full flex-1 basis-[424px]"
           >
             <Box>
-              <ButtonLink to="/dapps/">
+              <ButtonLink href="/dapps/">
                 {t("page-wallets-more-on-dapps-btn")}
               </ButtonLink>
             </Box>
