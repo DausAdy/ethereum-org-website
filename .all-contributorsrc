@@ -6146,7 +6146,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/4249432?v=4",
       "profile": "https://github.com/LingTian",
       "contributions": [
-        "content"
+        "content",
+        "eventOrganizing"
       ]
     },
     {
@@ -10560,7 +10561,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/36084092?v=4",
       "profile": "https://ilanolkies.com",
       "contributions": [
-        "content"
+        "content",
+        "maintenance"
       ]
     },
     {
@@ -12998,7 +13000,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/98899785?v=4",
       "profile": "https://mdqst.com",
       "contributions": [
-        "bug"
+        "bug",
+        "maintenance"
       ]
     },
     {
@@ -13224,6 +13227,35 @@
       "profile": "https://github.com/hexcow",
       "contributions": [
         "bug"
+      ]
+    },
+    {
+      "login": "dlr-a",
+      "name": "dlr-a",
+      "avatar_url": "https://avatars.githubusercontent.com/u/116620647?v=4",
+      "profile": "https://github.com/dlr-a",
+      "contributions": [
+        "content",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "trocher",
+      "name": "trocher",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43437004?v=4",
+      "profile": "http://trocher.ch",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "ryangoree",
+      "name": "Ryan Goree",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3289505?v=4",
+      "profile": "http://gists.github.com/ryangoree",
+      "contributions": [
+        "maintenance",
+        "code"
       ]
     }
   ],
