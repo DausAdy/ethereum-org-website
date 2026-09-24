@@ -1140,6 +1140,17 @@ const chains = [
     shortName: "robinhoodchain",
   },
   {
+    name: "MegaETH Mainnet",
+    infoURL: "https://megaeth.com",
+    chainId: 4326,
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "ETH",
+  },
+  {
     name: "OEV Network",
     infoURL: "https://api3.org/oev/",
     chainId: 4913,
@@ -2040,6 +2051,17 @@ const chains = [
     shortName: "nil",
   },
   {
+    name: "Doma",
+    infoURL: "https://doma.xyz",
+    chainId: 97477,
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "ETH",
+  },
+  {
     name: "Sova",
     infoURL: "https://sova.io",
     chainId: 100021,
@@ -2231,6 +2253,17 @@ const chains = [
     },
     chain: "Silent Data",
     shortName: "silent-data-mainnet",
+  },
+  {
+    name: "Silent Data Mainnet",
+    infoURL: "https://www.silentdata.com",
+    chainId: 380929,
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "Silent Data",
   },
   {
     name: "Infinaeon",
@@ -2459,6 +2492,17 @@ const chains = [
     },
     chain: "ETH",
     shortName: "jovay",
+  },
+  {
+    name: "Jovay Mainnet",
+    infoURL: "https://jovay.io",
+    chainId: 5734951,
+    nativeCurrency: {
+      name: "Ether",
+      symbol: "ETH",
+      decimals: 18,
+    },
+    chain: "ETH",
   },
   {
     name: "Astar zKyoto",
